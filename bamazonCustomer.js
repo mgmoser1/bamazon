@@ -27,16 +27,17 @@ connection.connect(function(err) {
   
   function displayInv() {
 
-      connection.query("SELECT item_id, product_name, price, stock_quantity FROM products", function(err, res) {
-        if (err) throw err;
-        
-        for (var i = 0; i < res.length; i++) {
-          console.log("Item ID: " + res[i].item_id + " || Product Name: " + res[i].product_name + " || Price: $" + Number.parseFloat(res[i].price).toFixed(2));  // price is a string
-        }
-        
-        prompter();
-  
-      });
+    var query = "SELECT item_id, product_name, price, stock_quantity FROM products";
+    connection.query(query, function(err, res) {
+      if (err) throw err;
+      
+      for (var i = 0; i < res.length; i++) {
+        console.log("Item ID: " + res[i].item_id + " || Product Name: " + res[i].product_name + " || Price: $" + Number.parseFloat(res[i].price).toFixed(2));  // price is a string
+      }
+      
+      prompter();
+
+    });
   }
 
  //// Displays choice to View Menu or Quit ////
@@ -99,14 +100,14 @@ function disconnect() {
         var {itemID, numBuyingString} = answer;
         var numBuying = parseInt(numBuyingString);
 
-      /* Input validation */
+      /* Input validation and inventory check */
         if (!(isNaN(numBuying))){
-          var query = "SELECT item_id, product_name, price, stock_quantity FROM products WHERE ?";
+          var query = "SELECT item_id, product_name, price, stock_quantity, product_sales FROM products WHERE ?";
           connection.query(query, { item_id: itemID }, function(err, res) {
         
             if (err) throw err;
           
-            var {item_id, product_name, price, stock_quantity} = res[0];
+            var {item_id, product_name, price, stock_quantity, product_sales} = res[0];
 
             /* console.log ("Item ID: " + item_id);
             console.log ("Product Name: " + product_name);
@@ -117,13 +118,14 @@ function disconnect() {
 
              /* Reduce stock in mySQL database */
               stock_quantity -= numBuying;
-              
-              var query = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";
-              connection.query(query, [ stock_quantity, item_id ], function(err, res) {
+              var total = numBuying * price;
+              var totalSales = product_sales + total;
+
+              ///// FIX PRODUCT_SALES TO ADD, NOT REPLACE.
+              var query = "UPDATE products SET stock_quantity = ?, product_sales = ? WHERE item_id = ?";
+              connection.query(query, [ stock_quantity, totalSales, item_id ], function(err, res) {
                 if (err) throw err;
-                console.log(res.affectedRows + " record(s) updated");
-                console.log(stock_quantity);
-                var total = numBuying * price;
+                console.log(res.affectedRows + " record(s) updated");                
 
              /* Alert user sale complete */   
                 if (numBuying == 1) {

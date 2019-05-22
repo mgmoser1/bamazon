@@ -1,5 +1,7 @@
 USE bamazon;
 
+
+-- PRODUCTS TABLE --
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES
     ("Planting Biodiverse Forests in Panama", "Forest Conservation/Reforestation", 18.00, 601),
@@ -12,3 +14,13 @@ VALUES
     ("Fuel Efficient Stoves for Northern Darfur Women", "Energy Efficiency", 13.00, 579),
     ("20 MW Biomass Power Project in Chhattisgarh, India", "Renewable Energy", 11.00, 456),
     ("Ethiopian Forest Regeneration Cooperative", "Forest Conservation/Reforestation", 18.00, 140);
+
+
+-- DEPARTMENTS TABLE --
+
+INSERT INTO departments (department_name, over_head_costs)
+VALUES
+    ("Forest Conservation/Reforestation", 8.00),
+    ("Renewable Energy", 6.00),
+    ("Energy Efficiency", 7.00);
+    
