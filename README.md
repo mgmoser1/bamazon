@@ -16,6 +16,13 @@ To run this app, clone it to a local repository and run `npm install` from the t
 
 **The Supervisor Interface** allows supervisors to view sales by department and add new departments.
 
+## Demo Videos
+**[Customer Interface](https://drive.google.com/file/d/1zP9Gd0VV8TsJkDWAfCtmwmpbLnsB_YCG/view?usp=sharing)**
+
+**[The Manager Interface](https://drive.google.com/file/d/1xC-Q8M1HC45SOy_IkJ5B9H7ej6fzXo9V/view?usp=sharing)**
+
+**[The Supervisor Interface](https://drive.google.com/file/d/1zeQ9OuBm0gMVUVWnBTmFfS7t1XSn1aNf/view?usp=sharing)**
+
 
 ## Tools
 The app uses JavaScript for the logic and user interface and mySQL for data storage. The Inquirer Node module is used to make the CLI more user friendly for gathering user input and greatly assisted in input validation. The Console.Table Node module is used to increase readability of the returned data.
