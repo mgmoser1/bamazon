@@ -24,6 +24,14 @@ connection.connect(function(err) {
    
   });
 
+  //// Ends mySQL database connection ////
+
+function disconnect() {
+  console.log("Good Bye!");
+  connection.end();                          //// END CONNECTION ////
+}
+
+
 
   //// Displays choices to View, Add, or Quit ////
 
@@ -67,14 +75,6 @@ connection.connect(function(err) {
     });
 }
 
-//// Ends mySQL database connection ////
-
-function disconnect() {
-  console.log("Good Bye!");
-  connection.end();                          //// END CONNECTION ////
-}
-  
-
 
 
 //// Displays all inventory for sale ////
@@ -107,7 +107,7 @@ function MgrDisplayInv() {
   })  
 }
 
-//// list all items with an inventory count lower than five ////   WORKS. Change number to 5 after testing.
+//// Lists all items with an inventory count lower than 200 ////
 
 function lowInv() {
     
@@ -138,6 +138,9 @@ function lowInv() {
 
     }
 
+
+//// Adds new stock to the stock_quantity field of an existing item in the products table. ////   
+
 function addInv() {
 
   function itemListGenerator() {
@@ -166,7 +169,7 @@ function addInv() {
         type: "input",
         message: "Please enter the ID of item to add inventory for: ",
          validate: function(value) {
-            if (isNaN(value) === false && iList.includes(parseInt(value)) == true) {
+            if (isNaN(value) === false && iList.includes(parseFloat(value)) == true) {
               return true;
             }
             return false;
@@ -190,14 +193,14 @@ function addInv() {
 
       /* Inventory check */
       
-      var query1 = "SELECT item_id, product_name, stock_quantity FROM products WHERE item_id = ?"; // <- ?
-      connection.query(query1, [ itemID ], function(err, res) { // {  }, 
+      var query1 = "SELECT item_id, product_name, stock_quantity FROM products WHERE item_id = ?";
+      connection.query(query1, [ itemID ], function(err, res) {
           if (err) throw err;
           var {item_id, product_name, stock_quantity} = res[0];
           var currentInv = parseInt(stock_quantity);
           var updatedInv = currentInv + addQuantity;
           
-              var query2 = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";  // += does not work. May need to run SELECT above and assign a variable to manually change.
+              var query2 = "UPDATE products SET stock_quantity = ? WHERE item_id = ?";
               connection.query(query2, [ updatedInv, itemID ], function(err, res) {
                 if (err) throw err;
                 console.log(res.affectedRows + " record(s) updated");
@@ -216,11 +219,7 @@ function addInv() {
 })
 }
 
-
-
-/* INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES
-    ("Planting Biodiverse Forests in Panama", "Forest Conservation/Reforestation", 18.00, 601), */
+//// Adds a new item to the products table. ////
 
 function addItem() {
 
@@ -244,6 +243,7 @@ function addItem() {
   }
 
   deptListGenerator()
+
   .then(value => {
 
   inquirer
@@ -284,27 +284,21 @@ function addItem() {
       }
     }])
   .then(function(answer) {
-      var {itemName, itemDept, itemPriceString, itemQuantString } = answer;
+      var { itemName, itemDept, itemPriceString, itemQuantString } = answer;
       var price = parseInt(itemPriceString);
       var quantity = parseInt(itemQuantString);
 
     /* Input validation and inventory check */
-     if (quantity > 0 && price > 0){
 
-    var query = "INSERT INTO products SET ?"; // (product_name, department_name, price, stock_quantity)
-    var values =  { product_name: itemName , department_name: itemDept, price: price, stock_quantity: quantity };
+    var query = "INSERT INTO products SET ?";
+    var values =  { product_name: itemName , department_name: itemDept, price: price, stock_quantity: quantity, product_sales: 0 };
           
- //   var query = "SELECT item_id, product_name, stock_quantity FROM products WHERE item_id = ?"; // <- ?
-    connection.query(query, values, function(err, res) { // {  }, 
+    connection.query(query, values, function(err, res) {
         if (err) throw err;
         console.log("Product added. The Item ID is " + res.insertId + ".");
         managerChoice();
         })
-    }else {
-      console.log("That is not a valid amount. Please try again.");
-      managerChoice();
-    }
-
+    
 })
 })
 .catch(err => {

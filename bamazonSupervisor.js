@@ -115,18 +115,17 @@ function  deptCreate() {
             return false;
           }
           
-        },])
+        }])
     .then(function(answer) {
-        var {deptName, overhead} = answer;
- //     console.log(deptName);
-  
-      var query = "INSERT INTO departments SET ?"; // (product_name, department_name, price, stock_quantity)
+        var {deptName, overheadString} = answer;
+        var overhead = parseFloat(overheadString);
+     
+      var query = "INSERT INTO departments SET ?";
       var values =  { department_name: deptName, over_head_costs: overhead };
             
-   //   var query = "SELECT item_id, product_name, stock_quantity FROM products WHERE item_id = ?"; // <- ?
-      connection.query(query, values, function(err, res) { // {  }, 
+       connection.query(query, values, function(err, res) {
           if (err) throw err;
-          console.log("Department added. The Department ID is " + res.insertId + ".");
+          console.log(deptName + " department added. The Department ID is " + res.insertId + ".");
           superChoice();
           })
       })

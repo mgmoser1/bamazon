@@ -24,6 +24,13 @@ connection.connect(function(err) {
    
   });
 
+
+//// Ends mySQL database connection ////
+
+function disconnect() {
+  console.log("Good Bye!");
+  connection.end();                          //// END CONNECTION ////
+}
   
 
  //// Displays choice to View Menu or Quit ////
@@ -84,14 +91,6 @@ function displayInv() {
   });
 }
 
-//// Ends mySQL database connection ////
-
-function disconnect() {
-  console.log("Good Bye!");
-  connection.end();                          //// END CONNECTION ////
-}
-  
-
   //// Prompts user to select a product by item number and specify the number of units to be purchased. ////
 
   function prompter (prodID) {
@@ -102,7 +101,7 @@ function disconnect() {
         type: "input",
         message: "Please enter the Item ID of the carbon offset you would like to purchase: ",
          validate: function(value) {
-            if (isNaN(value) === false && prodID.includes(parseInt(value)) == true) {
+            if (isNaN(value) === false && prodID.includes(parseFloat(value)) == true) {
               return true;
             }
             return false;
