@@ -6,7 +6,7 @@ This version of bamazon, created for a school project, is a carbon offset market
 
 
 ## Getting Started
-To run this app, clone it to a local repository and run `npm install` from the terminal. You will also need to run `npm install mysql`, `npm install inquirer`, and `npm install console.table`. Type "node" plus the file name of the file you want to run.
+To run this app, clone it to a local repository and run `npm install` from the terminal. You will also need to run `npm install mysql`, `npm install inquirer`, and `npm install console.table`. Once these have been installed, you can run the customer, manager, and supervisor interfaces by typing "node" plus the applicable file name in the command line.
 
 
 ## Project Overview
