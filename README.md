@@ -17,11 +17,11 @@ To run this app, clone it to a local repository and run `npm install` from the t
 **The Supervisor Interface** allows supervisors to view sales by department and add new departments.
 
 ## Demo Videos
-**[Customer Interface](https://drive.google.com/file/d/1zP9Gd0VV8TsJkDWAfCtmwmpbLnsB_YCG/view?usp=sharing)**
+**[Customer Interface](https://drive.google.com/open?id=1zP9Gd0VV8TsJkDWAfCtmwmpbLnsB_YCG)**
 
-**[The Manager Interface](https://drive.google.com/file/d/1xC-Q8M1HC45SOy_IkJ5B9H7ej6fzXo9V/view?usp=sharing)**
+**[The Manager Interface](https://drive.google.com/open?id=1xC-Q8M1HC45SOy_IkJ5B9H7ej6fzXo9V)**
 
-**[The Supervisor Interface](https://drive.google.com/file/d/1Vwb20Eie6Omfhuw3CKIS4d_JRPC-mVRP/view?usp=sharing)**
+**[The Supervisor Interface](https://drive.google.com/open?id=1Vwb20Eie6Omfhuw3CKIS4d_JRPC-mVRP)**
 
 
 ## Tools
